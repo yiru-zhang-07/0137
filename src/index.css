@@ -59,26 +59,35 @@
   }
 
   .custom-cursor {
-    @apply pointer-events-none fixed z-50 rounded-full backdrop-blur-sm bg-white/15 mix-blend-difference;
-    height: 32px;
-    width: 32px;
-    margin-left: -16px;
-    margin-top: -16px;
+    @apply pointer-events-none fixed z-50 rounded-full backdrop-blur-sm bg-white/10 mix-blend-difference flex items-center justify-center;
+    height: 40px;
+    width: 40px;
+    margin-left: -20px;
+    margin-top: -20px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: transform 0.2s ease, width 0.2s ease, height 0.2s ease;
   }
 
+  .custom-cursor .paintbrush-icon {
+    opacity: 0.8;
+    transform: rotate(-45deg);
+  }
+
   .custom-cursor.active {
-    height: 64px;
-    width: 64px;
-    margin-left: -32px;
-    margin-top: -32px;
+    height: 60px;
+    width: 60px;
+    margin-left: -30px;
+    margin-top: -30px;
     background-color: rgba(255, 255, 255, 0.2);
     mix-blend-mode: difference;
   }
 
+  .custom-cursor.active .paintbrush-icon {
+    transform: rotate(-30deg) scale(1.2);
+  }
+
   .custom-cursor.hover {
-    transform: scale(1.5);
+    transform: scale(1.2);
   }
 
   .reveal-text {

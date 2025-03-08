@@ -3,20 +3,30 @@ import React, { useState, useEffect } from 'react';
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
   
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      
+      // Update active section based on scroll position
+      const sections = ['hero', 'about', 'projects'];
+      const currentSection = sections.find(section => {
+        const element = document.getElementById(section);
+        if (!element) return false;
+        
+        const rect = element.getBoundingClientRect();
+        return rect.top <= 100 && rect.bottom > 100;
+      });
+      
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
     };
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
   
   return (
     <header 
@@ -29,37 +39,26 @@ const Navigation: React.FC = () => {
           Portfolio
         </a>
         
-        {/* Mobile menu button */}
-        <button 
-          className="lg:hidden flex flex-col gap-1.5"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          <span className={`block w-6 h-0.5 bg-current transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-          <span className={`block w-6 h-0.5 bg-current transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-          <span className={`block w-6 h-0.5 bg-current transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-        </button>
-        
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-8">
-          <a href="#about" className="nav-link text-sm font-medium">About</a>
-          <a href="#projects" className="nav-link text-sm font-medium">Projects</a>
-          <a href="#contact" className="nav-link text-sm font-medium">Contact</a>
-          <a href="#contact" className="btn-primary text-sm">Get In Touch</a>
-        </nav>
-      </div>
-      
-      {/* Mobile menu */}
-      <div 
-        className={`lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md shadow-md transition-all duration-300 ease-in-out overflow-hidden ${
-          isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
-        <nav className="flex flex-col px-6 py-4 space-y-4">
-          <a href="#about" className="py-2 text-sm font-medium" onClick={() => setIsMenuOpen(false)}>About</a>
-          <a href="#projects" className="py-2 text-sm font-medium" onClick={() => setIsMenuOpen(false)}>Projects</a>
-          <a href="#contact" className="py-2 text-sm font-medium" onClick={() => setIsMenuOpen(false)}>Contact</a>
-          <a href="#contact" className="btn-primary text-sm w-full text-center" onClick={() => setIsMenuOpen(false)}>Get In Touch</a>
+        {/* Navigation Tabs */}
+        <nav className="flex items-center space-x-8">
+          <a 
+            href="#hero" 
+            className={`nav-link text-sm font-medium ${activeSection === 'hero' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
+          >
+            Home
+          </a>
+          <a 
+            href="#about" 
+            className={`nav-link text-sm font-medium ${activeSection === 'about' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
+          >
+            About
+          </a>
+          <a 
+            href="#projects" 
+            className={`nav-link text-sm font-medium ${activeSection === 'projects' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
+          >
+            Projects
+          </a>
         </nav>
       </div>
     </header>

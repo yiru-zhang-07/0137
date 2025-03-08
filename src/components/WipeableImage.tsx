@@ -20,6 +20,7 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null);
+  const watercolorBrushes = useRef<HTMLCanvasElement[]>([]);
   
   // Check if device is mobile or tablet
   useEffect(() => {
@@ -33,6 +34,44 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     return () => {
       window.removeEventListener('resize', checkDevice);
     };
+  }, []);
+
+  // Create watercolor brushes
+  useEffect(() => {
+    // Create a few different watercolor brush textures
+    const createWatercolorBrush = (size: number, opacity: number) => {
+      const canvas = document.createElement('canvas');
+      canvas.width = size * 2;
+      canvas.height = size * 2;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return canvas;
+
+      // Drawing a watercolor-like blob
+      ctx.globalAlpha = opacity;
+      for (let i = 0; i < 20; i++) {
+        const radius = Math.random() * size * 0.4 + size * 0.6;
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * (size * 0.4);
+        
+        ctx.beginPath();
+        ctx.arc(
+          size + Math.cos(angle) * distance, 
+          size + Math.sin(angle) * distance, 
+          radius, 0, Math.PI * 2
+        );
+        ctx.fill();
+      }
+      
+      return canvas;
+    };
+
+    // Create a few different brush sizes
+    watercolorBrushes.current = [
+      createWatercolorBrush(40, 0.4),
+      createWatercolorBrush(60, 0.35),
+      createWatercolorBrush(80, 0.3),
+      createWatercolorBrush(100, 0.25),
+    ];
   }, []);
 
   // Initialize canvas and load image
@@ -115,21 +154,34 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     setMousePosition({ x, y });
     
     if (isErasing && contextRef.current) {
-      erase(x, y);
+      applyWatercolorErase(x, y);
     }
   };
   
-  // Handle erasing
-  const erase = (x: number, y: number) => {
-    if (!contextRef.current) return;
+  // Apply watercolor erasing effect
+  const applyWatercolorErase = (x: number, y: number) => {
+    if (!contextRef.current || watercolorBrushes.current.length === 0) return;
     
     const context = contextRef.current;
-    const radius = isMobileOrTablet ? 40 : 60;
     
+    // Use a random brush from our collection for variety
+    const brushIndex = Math.floor(Math.random() * watercolorBrushes.current.length);
+    const brush = watercolorBrushes.current[brushIndex];
+    
+    // Apply the brush as an eraser
     context.globalCompositeOperation = 'destination-out';
-    context.beginPath();
-    context.arc(x, y, radius, 0, Math.PI * 2, false);
-    context.fill();
+    
+    // Add some randomness to each stroke for a more natural feel
+    const randomScale = 0.8 + Math.random() * 0.4; // Scale between 0.8 and 1.2
+    const size = brush.width / 2 * randomScale;
+    
+    context.drawImage(
+      brush, 
+      x - size, 
+      y - size, 
+      size * 2, 
+      size * 2
+    );
   };
   
   // Start erasing
@@ -184,7 +236,7 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
           }}
         >
           <div className="px-4 py-2 rounded-full bg-black/60 text-white text-sm backdrop-blur-sm">
-            {isMobileOrTablet ? 'Touch and drag to reveal' : 'Click and drag to reveal'}
+            {isMobileOrTablet ? 'Touch and paint to reveal' : 'Click and paint to reveal'}
           </div>
         </div>
       )}

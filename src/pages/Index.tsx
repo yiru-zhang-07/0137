@@ -4,7 +4,6 @@ import WipeableImage from '../components/WipeableImage';
 import Navigation from '../components/Navigation';
 import About from '../components/About';
 import Projects from '../components/Projects';
-import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 
 const Index: React.FC = () => {
@@ -80,7 +79,23 @@ const Index: React.FC = () => {
             left: `${cursorPosition.x}px`, 
             top: `${cursorPosition.y}px`,
           }}
-        />
+        >
+          <svg 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+            className="paintbrush-icon"
+          >
+            <path d="M18.37 2.63 14 7l-1.59-1.59a2 2 0 0 0-2.82 0L8 7l9 9 1.59-1.59a2 2 0 0 0 0-2.82L17 10l4.37-4.37a2.12 2.12 0 1 0-3-3Z"></path>
+            <path d="M9 8c-2 3-4 3.5-7 4l8 10c2-1 6-5 6-7"></path>
+            <path d="M14.5 17.5 4.5 15"></path>
+          </svg>
+        </div>
       )}
       
       <Navigation />
@@ -96,17 +111,14 @@ const Index: React.FC = () => {
                   DESIGNER & DEVELOPER
                 </span>
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-scale-in" style={{ animationDelay: '0.7s' }}>
-                  Creating Digital Experiences
+                  👋 Hi, I'm Yiru!
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground max-w-xl mb-8 animate-fade-in" style={{ animationDelay: '0.9s' }}>
-                  I design and build digital products that help businesses grow and create meaningful connections with their users.
+                  I design engaging and fun experiences
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '1.1s' }}>
                   <a href="#projects" className="btn-primary">
                     View My Work
-                  </a>
-                  <a href="#contact" className="inline-flex items-center justify-center px-6 py-3 rounded-md font-medium border border-input hover:bg-secondary transition-colors">
-                    Contact Me
                   </a>
                 </div>
               </div>
@@ -116,7 +128,6 @@ const Index: React.FC = () => {
         
         <About />
         <Projects />
-        <Contact />
       </main>
       
       <Footer />
