@@ -129,8 +129,21 @@ const Index: React.FC = () => {
                   I design engaging and fun experiences
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '1.1s' }}>
-                  <a href="#projects" className="btn-primary">
-                    View My Work
+                  <a href="#projects" className="btn-primary group">
+                    <span>Scroll down to view my work</span>
+                    <svg 
+                      width="24" 
+                      height="24" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                      className="ml-2 transition-transform duration-300 group-hover:translate-y-1"
+                    >
+                      <path d="M12 5v14M5 12l7 7 7-7"/>
+                    </svg>
                   </a>
                 </div>
               </div>
