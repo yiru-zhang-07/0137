@@ -5,12 +5,14 @@ interface WipeableImageProps {
   topImage: string;
   bottomContent: React.ReactNode;
   className?: string;
+  containedMode?: boolean;
 }
 
 const WipeableImage: React.FC<WipeableImageProps> = ({ 
   topImage, 
   bottomContent,
-  className = '' 
+  className = '',
+  containedMode = false 
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,6 +23,7 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
   const imageRef = useRef<HTMLImageElement | null>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null);
   const watercolorBrushes = useRef<HTMLCanvasElement[]>([]);
+  const scratchAreaRef = useRef<HTMLDivElement>(null);
   
   // Check if device is mobile or tablet
   useEffect(() => {
@@ -92,8 +95,19 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     image.onload = () => {
       if (!containerRef.current) return;
       
-      // Set canvas dimensions to match container
-      const { width, height } = containerRef.current.getBoundingClientRect();
+      // Set canvas dimensions to match container or scratch area
+      let width, height;
+      
+      if (containedMode && scratchAreaRef.current) {
+        const scratchRect = scratchAreaRef.current.getBoundingClientRect();
+        width = scratchRect.width;
+        height = scratchRect.height;
+      } else {
+        const containerRect = containerRef.current.getBoundingClientRect();
+        width = containerRect.width;
+        height = containerRect.height;
+      }
+      
       canvas.width = width;
       canvas.height = height;
       
@@ -105,14 +119,28 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
       context.drawImage(image, 0, 0, width, height);
       setIsLoaded(true);
     };
-  }, [topImage]);
+  }, [topImage, containedMode]);
 
   // Handle resize
   useEffect(() => {
     const handleResize = () => {
-      if (!containerRef.current || !canvasRef.current || !imageRef.current || !contextRef.current) return;
+      if (!canvasRef.current || !imageRef.current || !contextRef.current) return;
       
-      const { width, height } = containerRef.current.getBoundingClientRect();
+      // Determine dimensions based on mode
+      let width, height;
+      
+      if (containedMode && scratchAreaRef.current) {
+        const scratchRect = scratchAreaRef.current.getBoundingClientRect();
+        width = scratchRect.width;
+        height = scratchRect.height;
+      } else if (containerRef.current) {
+        const containerRect = containerRef.current.getBoundingClientRect();
+        width = containerRect.width;
+        height = containerRect.height;
+      } else {
+        return;
+      }
+      
       const canvas = canvasRef.current;
       const context = contextRef.current;
       
@@ -128,13 +156,23 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [containedMode]);
 
   // Handle mouse/touch movement
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
-    if (!containerRef.current || !isLoaded) return;
+    if ((!containedMode && !containerRef.current) || 
+        (containedMode && !scratchAreaRef.current) || 
+        !isLoaded) return;
     
-    const containerRect = containerRef.current.getBoundingClientRect();
+    let containerRect;
+    
+    if (containedMode && scratchAreaRef.current) {
+      containerRect = scratchAreaRef.current.getBoundingClientRect();
+    } else if (containerRef.current) {
+      containerRect = containerRef.current.getBoundingClientRect();
+    } else {
+      return;
+    }
     
     let clientX, clientY;
     
@@ -199,45 +237,78 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     <div 
       ref={containerRef}
       className={`relative overflow-hidden ${className}`}
-      onMouseMove={handleMouseMove}
-      onMouseDown={handleStart}
-      onMouseUp={handleEnd}
-      onMouseLeave={handleEnd}
-      onTouchMove={handleMouseMove}
-      onTouchStart={handleStart}
-      onTouchEnd={handleEnd}
     >
       {/* Bottom content */}
       <div className="absolute inset-0 z-0 flex items-center justify-center">
         {bottomContent}
       </div>
       
-      {/* Canvas overlay */}
-      <canvas 
-        ref={canvasRef} 
-        className="absolute inset-0 z-10 touch-none"
-      />
+      {/* Scratch area (if in contained mode) */}
+      {containedMode ? (
+        <div 
+          ref={scratchAreaRef}
+          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 aspect-video z-10 rounded-lg overflow-hidden border-4 border-white/20 shadow-xl"
+          style={{ maxWidth: "600px" }}
+          onMouseMove={handleMouseMove}
+          onMouseDown={handleStart}
+          onMouseUp={handleEnd}
+          onMouseLeave={handleEnd}
+          onTouchMove={handleMouseMove}
+          onTouchStart={handleStart}
+          onTouchEnd={handleEnd}
+        >
+          {/* Canvas overlay for scratch area */}
+          <canvas 
+            ref={canvasRef} 
+            className="absolute inset-0 z-10 touch-none"
+          />
+          
+          {/* Instructions for scratch area */}
+          {isLoaded && (
+            <div 
+              className={`absolute z-20 transition-opacity duration-500 ${isErasing ? 'opacity-0' : 'opacity-100'}`}
+              style={{ 
+                top: '50%', 
+                left: '50%', 
+                transform: 'translate(-50%, -50%)'
+              }}
+            >
+              <div className="px-4 py-2 rounded-full bg-black/60 text-white text-sm backdrop-blur-sm">
+                {isMobileOrTablet ? 'Touch to reveal' : 'Scratch to reveal'}
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        // Full-screen canvas (original mode)
+        <>
+          <canvas 
+            ref={canvasRef} 
+            className="absolute inset-0 z-10 touch-none"
+          />
+          
+          {/* Instructions for full screen */}
+          {isLoaded && (
+            <div 
+              className={`absolute z-20 transition-opacity duration-500 ${isErasing ? 'opacity-0' : 'opacity-100'}`}
+              style={{ 
+                top: '50%', 
+                left: '50%', 
+                transform: 'translate(-50%, -50%)'
+              }}
+            >
+              <div className="px-4 py-2 rounded-full bg-black/60 text-white text-sm backdrop-blur-sm">
+                {isMobileOrTablet ? 'Touch and paint to reveal' : 'Click and paint to reveal'}
+              </div>
+            </div>
+          )}
+        </>
+      )}
       
       {/* Loading state */}
       {!isLoaded && (
         <div className="absolute inset-0 z-20 flex items-center justify-center bg-gray-100">
           <div className="animate-pulse-slow w-6 h-6 bg-primary rounded-full"></div>
-        </div>
-      )}
-      
-      {/* Instructions */}
-      {isLoaded && (
-        <div 
-          className={`absolute z-20 transition-opacity duration-500 ${isErasing ? 'opacity-0' : 'opacity-100'}`}
-          style={{ 
-            top: '50%', 
-            left: '50%', 
-            transform: 'translate(-50%, -50%)'
-          }}
-        >
-          <div className="px-4 py-2 rounded-full bg-black/60 text-white text-sm backdrop-blur-sm">
-            {isMobileOrTablet ? 'Touch and paint to reveal' : 'Click and paint to reveal'}
-          </div>
         </div>
       )}
     </div>

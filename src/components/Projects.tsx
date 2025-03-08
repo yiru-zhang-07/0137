@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const projectsData = [
   {
@@ -29,6 +29,7 @@ const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const projectRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [activeProject, setActiveProject] = useState<number | null>(null);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -62,8 +63,13 @@ const Projects: React.FC = () => {
     };
   }, []);
   
+  // Handle card flip
+  const handleCardHover = (id: number | null) => {
+    setActiveProject(id);
+  };
+  
   return (
-    <section id="projects" className="section bg-secondary/30" ref={sectionRef}>
+    <section id="projects" className="section snap-section bg-secondary/30" ref={sectionRef}>
       <div className="max-w-6xl mx-auto">
         <div 
           className="text-center mb-14 opacity-0 transform translate-y-8"
@@ -79,18 +85,26 @@ const Projects: React.FC = () => {
           {projectsData.map((project, index) => (
             <div
               key={project.id}
-              className="project-card opacity-0 transform translate-y-8"
+              className="project-card interactive-card opacity-0 transform translate-y-8 cursor-hover"
               ref={el => projectRefs.current[index] = el}
               style={{ transitionDelay: `${index * 0.1}s` }}
+              onMouseEnter={() => handleCardHover(project.id)}
+              onMouseLeave={() => handleCardHover(null)}
             >
-              <div className="relative overflow-hidden aspect-[4/3]">
+              <div 
+                className="relative overflow-hidden aspect-[4/3] group"
+              >
                 <img
                   src={project.imageUrl}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-0 left-0 p-6">
+                <div 
+                  className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent transition-opacity duration-300 ${
+                    activeProject === project.id ? 'opacity-100' : 'opacity-0 lg:group-hover:opacity-100'
+                  }`}
+                >
+                  <div className="absolute bottom-0 left-0 p-6 transform transition-transform duration-300 translate-y-0">
                     <span className="inline-block px-2 py-1 text-xs bg-white/20 backdrop-blur-sm rounded text-white mb-2">
                       {project.category}
                     </span>
@@ -98,11 +112,21 @@ const Projects: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="p-6">
+              <div className="p-6 card-content">
                 <p className="text-muted-foreground">{project.description}</p>
-                <a href="#" className="nav-link mt-4 inline-block text-sm font-medium">
-                  View Project
-                </a>
+                <div className="mt-4 flex items-center transition-opacity duration-300 opacity-0 lg:group-hover:opacity-100">
+                  <a href="#" className="nav-link inline-block text-sm font-medium">
+                    View Project
+                  </a>
+                  <svg 
+                    className="w-4 h-4 ml-2 transition-transform duration-300 transform translate-x-0 group-hover:translate-x-2" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </div>
               </div>
             </div>
           ))}

@@ -10,8 +10,10 @@ const Index: React.FC = () => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [cursorActive, setCursorActive] = useState(false);
   const [cursorHover, setCursorHover] = useState(false);
+  const [isInHeroSection, setIsInHeroSection] = useState(true);
   const cursorRef = useRef<HTMLDivElement>(null);
   const hoveredElementRef = useRef<Element | null>(null);
+  const heroSectionRef = useRef<HTMLElement>(null);
   
   // Handle cursor position
   useEffect(() => {
@@ -38,6 +40,15 @@ const Index: React.FC = () => {
         setCursorHover(false);
         hoveredElementRef.current = null;
       }
+      
+      // Check if cursor is in hero section
+      if (heroSectionRef.current) {
+        const heroRect = heroSectionRef.current.getBoundingClientRect();
+        setIsInHeroSection(
+          e.clientY >= heroRect.top && 
+          e.clientY <= heroRect.bottom
+        );
+      }
     };
     
     const handleMouseDown = () => setCursorActive(true);
@@ -54,20 +65,20 @@ const Index: React.FC = () => {
     };
   }, [cursorHover]);
   
-  // Hide default cursor on desktop
+  // Hide default cursor on desktop only in hero section
   useEffect(() => {
     if (window.innerWidth >= 1024) {
-      document.body.style.cursor = 'none';
+      document.body.style.cursor = isInHeroSection ? 'none' : 'auto';
       
       // Reset cursor when component unmounts
       return () => {
         document.body.style.cursor = 'auto';
       };
     }
-  }, []);
+  }, [isInHeroSection]);
   
-  // Only render custom cursor on larger screens
-  const shouldRenderCursor = typeof window !== 'undefined' && window.innerWidth >= 1024;
+  // Only render custom cursor on larger screens and when in hero section
+  const shouldRenderCursor = typeof window !== 'undefined' && window.innerWidth >= 1024 && isInHeroSection;
   
   return (
     <>
@@ -101,10 +112,11 @@ const Index: React.FC = () => {
       <Navigation />
       
       <main>
-        <section id="hero" className="min-h-screen flex items-center justify-center px-6 relative">
+        <section id="hero" ref={heroSectionRef} className="snap-section min-h-screen flex items-center justify-center px-6 relative">
           <WipeableImage
             topImage="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=2000&q=80"
             className="w-full h-screen absolute inset-0"
+            containedMode={true}
             bottomContent={
               <div className="flex flex-col items-center justify-center text-center p-6">
                 <span className="inline-block px-3 py-1 text-xs font-medium tracking-wider rounded-full bg-secondary mb-4 animate-fade-in" style={{ animationDelay: '0.5s' }}>
