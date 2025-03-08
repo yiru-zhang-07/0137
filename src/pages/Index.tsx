@@ -5,7 +5,6 @@ import Navigation from '../components/Navigation';
 import About from '../components/About';
 import Projects from '../components/Projects';
 import Footer from '../components/Footer';
-import { ChevronDown } from 'lucide-react';
 
 const Index: React.FC = () => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
@@ -78,14 +77,6 @@ const Index: React.FC = () => {
     }
   }, [isInHeroSection]);
   
-  // Scroll to About section
-  const scrollToAbout = () => {
-    const aboutSection = document.getElementById('about');
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-  
   // Only render custom cursor on larger screens and when in hero section
   const shouldRenderCursor = typeof window !== 'undefined' && window.innerWidth >= 1024 && isInHeroSection;
   
@@ -122,13 +113,10 @@ const Index: React.FC = () => {
       
       <main>
         <section id="hero" ref={heroSectionRef} className="snap-section min-h-screen flex items-center justify-center px-6 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 to-transparent z-0"></div>
           <WipeableImage
-            topImage="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=2000&q=80"
+            topImage="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=2000&q=80"
             className="w-full h-screen absolute inset-0"
             containedMode={true}
-            scratchCardMode={true}
-            largerBox={true}
             bottomContent={
               <div className="flex flex-col items-center justify-center text-center p-6">
                 <span className="inline-block px-3 py-1 text-xs font-medium tracking-wider rounded-full bg-secondary mb-4 animate-fade-in" style={{ animationDelay: '0.5s' }}>
@@ -141,10 +129,9 @@ const Index: React.FC = () => {
                   I design engaging and fun experiences
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '1.1s' }}>
-                  <button onClick={scrollToAbout} className="btn-primary flex items-center gap-2">
-                    Scroll Down to View My Work
-                    <ChevronDown className="animate-bounce" size={20} />
-                  </button>
+                  <a href="#projects" className="btn-primary">
+                    View My Work
+                  </a>
                 </div>
               </div>
             }

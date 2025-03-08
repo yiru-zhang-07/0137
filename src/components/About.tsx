@@ -30,7 +30,7 @@ const About: React.FC = () => {
   }, []);
   
   return (
-    <section id="about" className="section snap-section" ref={sectionRef}>
+    <section id="about" className="section" ref={sectionRef}>
       <div className="max-w-5xl mx-auto">
         <div 
           className="opacity-0 transform translate-y-8"

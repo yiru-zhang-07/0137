@@ -6,17 +6,13 @@ interface WipeableImageProps {
   bottomContent: React.ReactNode;
   className?: string;
   containedMode?: boolean;
-  scratchCardMode?: boolean;
-  largerBox?: boolean;
 }
 
 const WipeableImage: React.FC<WipeableImageProps> = ({ 
   topImage, 
   bottomContent,
   className = '',
-  containedMode = false,
-  scratchCardMode = false,
-  largerBox = false
+  containedMode = false 
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -237,20 +233,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     setIsErasing(false);
   };
 
-  // Calculate scratch box size
-  const getScratchBoxSize = () => {
-    if (largerBox) {
-      return {
-        width: "75%", // 150% larger than the original 50%
-        maxWidth: "900px" // 150% larger than the original 600px
-      };
-    }
-    return {
-      width: "50%",
-      maxWidth: "600px"
-    };
-  };
-
   return (
     <div 
       ref={containerRef}
@@ -265,11 +247,8 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
       {containedMode ? (
         <div 
           ref={scratchAreaRef}
-          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 aspect-video z-10 rounded-lg overflow-hidden border-4 border-white/20 shadow-xl"
-          style={{ 
-            width: getScratchBoxSize().width, 
-            maxWidth: getScratchBoxSize().maxWidth
-          }}
+          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 aspect-video z-10 rounded-lg overflow-hidden border-4 border-white/20 shadow-xl"
+          style={{ maxWidth: "600px" }}
           onMouseMove={handleMouseMove}
           onMouseDown={handleStart}
           onMouseUp={handleEnd}
@@ -283,18 +262,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
             ref={canvasRef} 
             className="absolute inset-0 z-10 touch-none"
           />
-          
-          {/* Scratch card pattern for background */}
-          {scratchCardMode && (
-            <div className="absolute inset-0 bg-gray-300 z-0">
-              <div className="absolute inset-0" style={{
-                backgroundImage: 'linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0), linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0)',
-                backgroundSize: '10px 10px',
-                backgroundPosition: '0 0, 5px 5px',
-                opacity: 0.5
-              }}></div>
-            </div>
-          )}
           
           {/* Instructions for scratch area */}
           {isLoaded && (

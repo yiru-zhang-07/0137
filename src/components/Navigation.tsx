@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -11,7 +10,7 @@ const Navigation: React.FC = () => {
       setIsScrolled(window.scrollY > 20);
       
       // Update active section based on scroll position
-      const sections = ['hero', 'about', 'projects', 'lookbook'];
+      const sections = ['hero', 'about', 'projects'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (!element) return false;
@@ -60,12 +59,6 @@ const Navigation: React.FC = () => {
           >
             Projects
           </a>
-          <Link
-            to="/lookbook" 
-            className={`nav-link text-sm font-medium ${activeSection === 'lookbook' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
-          >
-            Visual Design Lookbook
-          </Link>
         </nav>
       </div>
     </header>
