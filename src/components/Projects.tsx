@@ -1,37 +1,27 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 
-// Project accent colors
-const accentColors = [
-  'bg-[#8B5CF6]', // Purple
-  'bg-[#0EA5E9]', // Blue
-  'bg-[#F97316]'  // Orange
-];
-
 const projectsData = [
   {
     id: 1,
     title: "E-commerce Redesign",
     category: "UI/UX Design",
     imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80",
-    description: "Complete redesign of an e-commerce platform focusing on conversion rate optimization and user experience.",
-    accentColor: accentColors[0]
+    description: "Complete redesign of an e-commerce platform focusing on conversion rate optimization and user experience."
   },
   {
     id: 2,
     title: "Financial Dashboard",
     category: "Web Application",
     imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80",
-    description: "Interactive dashboard for financial data visualization with real-time updates and customizable widgets.",
-    accentColor: accentColors[1]
+    description: "Interactive dashboard for financial data visualization with real-time updates and customizable widgets."
   },
   {
     id: 3,
     title: "Mobile App Design",
     category: "UI Design",
     imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-    description: "Designed a health and fitness tracking app with a focus on accessibility and user engagement.",
-    accentColor: accentColors[2]
+    description: "Designed a health and fitness tracking app with a focus on accessibility and user engagement."
   }
 ];
 
@@ -115,8 +105,7 @@ const Projects: React.FC = () => {
                   }`}
                 >
                   <div className="absolute bottom-0 left-0 p-6 transform transition-transform duration-300 translate-y-0">
-                    <div className={`h-1 w-10 mb-3 rounded ${project.accentColor}`}></div>
-                    <span className={`inline-block px-2 py-1 text-xs backdrop-blur-sm rounded text-white mb-2 border-l-2 ${project.accentColor.replace('bg-', 'border-')}`}>
+                    <span className="inline-block px-2 py-1 text-xs bg-white/20 backdrop-blur-sm rounded text-white mb-2">
                       {project.category}
                     </span>
                     <h3 className="text-xl font-bold text-white">{project.title}</h3>
@@ -125,12 +114,12 @@ const Projects: React.FC = () => {
               </div>
               <div className="p-6 card-content">
                 <p className="text-muted-foreground">{project.description}</p>
-                <div className={`mt-4 flex items-center transition-opacity duration-300 opacity-0 lg:group-hover:opacity-100`}>
-                  <a href="#" className={`nav-link inline-block text-sm font-medium text-${project.accentColor.substring(3)}`}>
+                <div className="mt-4 flex items-center transition-opacity duration-300 opacity-0 lg:group-hover:opacity-100">
+                  <a href="#" className="nav-link inline-block text-sm font-medium">
                     View Project
                   </a>
                   <svg 
-                    className={`w-4 h-4 ml-2 transition-transform duration-300 transform translate-x-0 group-hover:translate-x-2 text-${project.accentColor.substring(3)}`} 
+                    className="w-4 h-4 ml-2 transition-transform duration-300 transform translate-x-0 group-hover:translate-x-2" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"

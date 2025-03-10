@@ -117,7 +117,6 @@ const Index: React.FC = () => {
             topImage="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=2000&q=80"
             className="w-full h-screen absolute inset-0"
             containedMode={true}
-            nameCardStyle={true}
             bottomContent={
               <div className="flex flex-col items-center justify-center text-center p-6">
                 <span className="inline-block px-3 py-1 text-xs font-medium tracking-wider rounded-full bg-secondary mb-4 animate-fade-in" style={{ animationDelay: '0.5s' }}>
