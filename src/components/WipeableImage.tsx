@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 
 interface WipeableImageProps {
@@ -6,13 +5,15 @@ interface WipeableImageProps {
   bottomContent: React.ReactNode;
   className?: string;
   containedMode?: boolean;
+  nameCardStyle?: boolean;
 }
 
 const WipeableImage: React.FC<WipeableImageProps> = ({ 
   topImage, 
   bottomContent,
   className = '',
-  containedMode = false 
+  containedMode = false,
+  nameCardStyle = false
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -25,7 +26,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
   const watercolorBrushes = useRef<HTMLCanvasElement[]>([]);
   const scratchAreaRef = useRef<HTMLDivElement>(null);
   
-  // Check if device is mobile or tablet
   useEffect(() => {
     const checkDevice = () => {
       setIsMobileOrTablet(window.innerWidth < 1024);
@@ -39,9 +39,7 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     };
   }, []);
 
-  // Create watercolor brushes
   useEffect(() => {
-    // Create a few different watercolor brush textures
     const createWatercolorBrush = (size: number, opacity: number) => {
       const canvas = document.createElement('canvas');
       canvas.width = size * 2;
@@ -49,7 +47,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
       const ctx = canvas.getContext('2d');
       if (!ctx) return canvas;
 
-      // Drawing a watercolor-like blob
       ctx.globalAlpha = opacity;
       for (let i = 0; i < 20; i++) {
         const radius = Math.random() * size * 0.4 + size * 0.6;
@@ -68,7 +65,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
       return canvas;
     };
 
-    // Create a few different brush sizes
     watercolorBrushes.current = [
       createWatercolorBrush(40, 0.4),
       createWatercolorBrush(60, 0.35),
@@ -77,7 +73,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     ];
   }, []);
 
-  // Initialize canvas and load image
   useEffect(() => {
     if (!canvasRef.current) return;
     
@@ -95,7 +90,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     image.onload = () => {
       if (!containerRef.current) return;
       
-      // Set canvas dimensions to match container or scratch area
       let width, height;
       
       if (containedMode && scratchAreaRef.current) {
@@ -111,22 +105,18 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
       canvas.width = width;
       canvas.height = height;
       
-      // Set display size (css pixels)
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       
-      // Draw image to fill canvas
       context.drawImage(image, 0, 0, width, height);
       setIsLoaded(true);
     };
   }, [topImage, containedMode]);
 
-  // Handle resize
   useEffect(() => {
     const handleResize = () => {
       if (!canvasRef.current || !imageRef.current || !contextRef.current) return;
       
-      // Determine dimensions based on mode
       let width, height;
       
       if (containedMode && scratchAreaRef.current) {
@@ -144,13 +134,11 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
       const canvas = canvasRef.current;
       const context = contextRef.current;
       
-      // Update canvas dimensions
       canvas.width = width;
       canvas.height = height;
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       
-      // Redraw the image
       context.drawImage(imageRef.current, 0, 0, width, height);
     };
     
@@ -158,7 +146,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, [containedMode]);
 
-  // Handle mouse/touch movement
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
     if ((!containedMode && !containerRef.current) || 
         (containedMode && !scratchAreaRef.current) || 
@@ -177,11 +164,9 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     let clientX, clientY;
     
     if ('touches' in e) {
-      // Touch event
       clientX = e.touches[0].clientX;
       clientY = e.touches[0].clientY;
     } else {
-      // Mouse event
       clientX = e.clientX;
       clientY = e.clientY;
     }
@@ -195,22 +180,18 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
       applyWatercolorErase(x, y);
     }
   };
-  
-  // Apply watercolor erasing effect
+
   const applyWatercolorErase = (x: number, y: number) => {
     if (!contextRef.current || watercolorBrushes.current.length === 0) return;
     
     const context = contextRef.current;
     
-    // Use a random brush from our collection for variety
     const brushIndex = Math.floor(Math.random() * watercolorBrushes.current.length);
     const brush = watercolorBrushes.current[brushIndex];
     
-    // Apply the brush as an eraser
     context.globalCompositeOperation = 'destination-out';
     
-    // Add some randomness to each stroke for a more natural feel
-    const randomScale = 0.8 + Math.random() * 0.4; // Scale between 0.8 and 1.2
+    const randomScale = 0.8 + Math.random() * 0.4;
     const size = brush.width / 2 * randomScale;
     
     context.drawImage(
@@ -221,14 +202,12 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
       size * 2
     );
   };
-  
-  // Start erasing
+
   const handleStart = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
     setIsErasing(true);
     handleMouseMove(e);
   };
-  
-  // Stop erasing
+
   const handleEnd = () => {
     setIsErasing(false);
   };
@@ -238,17 +217,19 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
       ref={containerRef}
       className={`relative overflow-hidden ${className}`}
     >
-      {/* Bottom content */}
       <div className="absolute inset-0 z-0 flex items-center justify-center">
         {bottomContent}
       </div>
       
-      {/* Scratch area (if in contained mode) */}
       {containedMode ? (
         <div 
           ref={scratchAreaRef}
-          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 aspect-video z-10 rounded-lg overflow-hidden border-4 border-white/20 shadow-xl"
-          style={{ maxWidth: "600px" }}
+          className={`absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
+            nameCardStyle 
+              ? 'w-[350px] sm:w-[400px] h-[200px] sm:h-[225px]' 
+              : 'w-1/2 aspect-video'
+          } z-10 rounded-lg overflow-hidden border-4 border-white/20 shadow-xl`}
+          style={{ maxWidth: nameCardStyle ? "400px" : "600px" }}
           onMouseMove={handleMouseMove}
           onMouseDown={handleStart}
           onMouseUp={handleEnd}
@@ -257,13 +238,11 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
           onTouchStart={handleStart}
           onTouchEnd={handleEnd}
         >
-          {/* Canvas overlay for scratch area */}
           <canvas 
             ref={canvasRef} 
             className="absolute inset-0 z-10 touch-none"
           />
           
-          {/* Instructions for scratch area */}
           {isLoaded && (
             <div 
               className={`absolute z-20 transition-opacity duration-500 ${isErasing ? 'opacity-0' : 'opacity-100'}`}
@@ -280,14 +259,12 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
           )}
         </div>
       ) : (
-        // Full-screen canvas (original mode)
         <>
           <canvas 
             ref={canvasRef} 
             className="absolute inset-0 z-10 touch-none"
           />
           
-          {/* Instructions for full screen */}
           {isLoaded && (
             <div 
               className={`absolute z-20 transition-opacity duration-500 ${isErasing ? 'opacity-0' : 'opacity-100'}`}
@@ -305,7 +282,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
         </>
       )}
       
-      {/* Loading state */}
       {!isLoaded && (
         <div className="absolute inset-0 z-20 flex items-center justify-center bg-gray-100">
           <div className="animate-pulse-slow w-6 h-6 bg-primary rounded-full"></div>
