@@ -114,7 +114,7 @@ const Index: React.FC = () => {
       <main>
         <section id="hero" ref={heroSectionRef} className="snap-section min-h-screen flex items-center justify-center px-6 relative">
           <WipeableImage
-            topImage="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=2000&q=80"
+            topImage="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&w=1600&q=80"
             className="w-full h-screen absolute inset-0"
             containedMode={true}
             bottomContent={

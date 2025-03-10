@@ -247,8 +247,8 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
       {containedMode ? (
         <div 
           ref={scratchAreaRef}
-          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 aspect-video z-10 rounded-lg overflow-hidden border-4 border-white/20 shadow-xl"
-          style={{ maxWidth: "600px" }}
+          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 aspect-[4/3] z-10 rounded-lg overflow-hidden border-4 border-white/20 shadow-xl cursor-none"
+          style={{ maxWidth: "900px" }}
           onMouseMove={handleMouseMove}
           onMouseDown={handleStart}
           onMouseUp={handleEnd}
@@ -262,22 +262,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
             ref={canvasRef} 
             className="absolute inset-0 z-10 touch-none"
           />
-          
-          {/* Instructions for scratch area */}
-          {isLoaded && (
-            <div 
-              className={`absolute z-20 transition-opacity duration-500 ${isErasing ? 'opacity-0' : 'opacity-100'}`}
-              style={{ 
-                top: '50%', 
-                left: '50%', 
-                transform: 'translate(-50%, -50%)'
-              }}
-            >
-              <div className="px-4 py-2 rounded-full bg-black/60 text-white text-sm backdrop-blur-sm">
-                {isMobileOrTablet ? 'Touch to reveal' : 'Scratch to reveal'}
-              </div>
-            </div>
-          )}
         </div>
       ) : (
         // Full-screen canvas (original mode)
@@ -286,22 +270,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
             ref={canvasRef} 
             className="absolute inset-0 z-10 touch-none"
           />
-          
-          {/* Instructions for full screen */}
-          {isLoaded && (
-            <div 
-              className={`absolute z-20 transition-opacity duration-500 ${isErasing ? 'opacity-0' : 'opacity-100'}`}
-              style={{ 
-                top: '50%', 
-                left: '50%', 
-                transform: 'translate(-50%, -50%)'
-              }}
-            >
-              <div className="px-4 py-2 rounded-full bg-black/60 text-white text-sm backdrop-blur-sm">
-                {isMobileOrTablet ? 'Touch and paint to reveal' : 'Click and paint to reveal'}
-              </div>
-            </div>
-          )}
         </>
       )}
       
