@@ -1,22 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 const projectsData = [{
   id: 1,
-  title: "E-commerce Redesign",
-  category: "UI/UX Design",
+  title: "Bloom App Design",
+  category: "UI/UX Design","Interaction Design",
   imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80",
-  description: "Complete redesign of an e-commerce platform focusing on conversion rate optimization and user experience."
+  description: "A mobile application that connects gardeners in a social network."
 }, {
   id: 2,
-  title: "Financial Dashboard",
-  category: "Web Application",
+  title: "Talent Assessment UX Research",
+  category: "User Research","User Interview",
   imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80",
-  description: "Interactive dashboard for financial data visualization with real-time updates and customizable widgets."
+  description: "UX research using interviews and affinity mapping to identify pain points and provide improvement suggestions."
 }, {
   id: 3,
-  title: "Mobile App Design",
-  category: "UI Design",
+  title: "RidEase",
+  category: "App Design","Carpooling",
   imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-  description: "Designed a health and fitness tracking app with a focus on accessibility and user engagement."
+  description: "Designed a carpooling app with a focus on safety."
 }];
 const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
