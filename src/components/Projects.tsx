@@ -2,19 +2,19 @@ import React, { useEffect, useRef, useState } from 'react';
 const projectsData = [{
   id: 1,
   title: "Bloom App Design",
-  category: "UI/UX Design","Interaction Design",
+  category: "UI/UX Design",
   imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80",
   description: "A mobile application that connects gardeners in a social network."
 }, {
   id: 2,
   title: "Talent Assessment UX Research",
-  category: "User Research","User Interview",
+  category: "User Research",
   imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80",
   description: "UX research using interviews and affinity mapping to identify pain points and provide improvement suggestions."
 }, {
   id: 3,
   title: "RidEase",
-  category: "App Design","Carpooling",
+  category: "App Design",
   imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
   description: "Designed a carpooling app with a focus on safety."
 }];
