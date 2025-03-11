@@ -1,41 +1,30 @@
-
 import React, { useEffect, useRef } from 'react';
-
 const About: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<Array<HTMLElement | null>>([]);
-  
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-slide-up', 'opacity-100');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-slide-up', 'opacity-100');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
     itemsRef.current.forEach(item => {
       if (item) observer.observe(item);
     });
-    
     return () => {
       itemsRef.current.forEach(item => {
         if (item) observer.unobserve(item);
       });
     };
   }, []);
-  
-  return (
-    <section id="about" className="section" ref={sectionRef}>
+  return <section id="about" className="section" ref={sectionRef}>
       <div className="max-w-5xl mx-auto">
-        <div 
-          className="opacity-0 transform translate-y-8"
-          ref={el => itemsRef.current[0] = el}
-        >
+        <div className="opacity-0 transform translate-y-8" ref={el => itemsRef.current[0] = el}>
           <span className="inline-block px-3 py-1 text-xs font-medium tracking-wider rounded-full bg-secondary mb-4">
             ABOUT ME
           </span>
@@ -43,10 +32,7 @@ const About: React.FC = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
-          <div 
-            className="opacity-0 transform translate-y-8"
-            ref={el => itemsRef.current[1] = el}
-          >
+          <div className="opacity-0 transform translate-y-8" ref={el => itemsRef.current[1] = el}>
             <p className="text-lg md:text-xl leading-relaxed mb-6">
               I'm a passionate designer and developer focused on creating meaningful digital experiences that connect with users on a deeper level.
             </p>
@@ -55,13 +41,10 @@ const About: React.FC = () => {
             </p>
           </div>
           
-          <div 
-            className="opacity-0 transform translate-y-8"
-            ref={el => itemsRef.current[2] = el}
-          >
+          <div className="opacity-0 transform translate-y-8" ref={el => itemsRef.current[2] = el}>
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <h3 className="text-3xl font-bold mb-2">5+</h3>
+                <h3 className="text-3xl font-bold mb-2">2+</h3>
                 <p className="text-sm text-muted-foreground">Years of Experience</p>
               </div>
               <div>
@@ -80,10 +63,7 @@ const About: React.FC = () => {
           </div>
         </div>
         
-        <div 
-          className="mt-16 opacity-0 transform translate-y-8"
-          ref={el => itemsRef.current[3] = el}
-        >
+        <div className="mt-16 opacity-0 transform translate-y-8" ref={el => itemsRef.current[3] = el}>
           <h3 className="text-xl font-semibold mb-6">My Expertise</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-secondary/50 p-4 rounded-lg">
@@ -105,8 +85,6 @@ const About: React.FC = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default About;
