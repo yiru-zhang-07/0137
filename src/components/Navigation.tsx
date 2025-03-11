@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,9 +36,9 @@ const Navigation: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <a href="#hero" className="text-xl font-semibold tracking-tight">
-          Portfolio
-        </a>
+        <Link to="/" className="text-xl font-semibold tracking-tight flex items-center">
+          <img src="/lovable-uploads/a5938b81-6c74-4131-95b7-54e910b9c177.png" alt="YL Logo" className="h-8 w-auto mr-2" />
+        </Link>
         
         {/* Navigation Tabs */}
         <nav className="flex items-center space-x-8">

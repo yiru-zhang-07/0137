@@ -1,28 +1,40 @@
+
 import React, { useEffect, useRef, useState } from 'react';
-const projectsData = [{
-  id: 1,
-  title: "Bloom App Design",
-  category: "Interaction Design",
-  imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80",
-  description: "A mobile application that connects gardeners in a social network to share and grow."
-}, {
-  id: 2,
-  title: "Talent Assessment",
-  category: "UX Research",
-  imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80",
-  description: "Conducting interviews and affinity mapping to identify pain points and provide suggestions."
-}, {
-  id: 3,
-  title: "RidEase",
-  category: "App Design",
-  imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-  description: "Designed a carpooling app with a focus on safety and user experience."
-}];
+import { Link } from 'react-router-dom';
+
+const projectsData = [
+  {
+    id: 1,
+    title: "Bloom App Design",
+    category: "Interaction Design",
+    imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80",
+    description: "A mobile application that connects gardeners in a social network to share and grow.",
+    link: "#"
+  },
+  {
+    id: 2,
+    title: "Talent Assessment",
+    category: "UX Research",
+    imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80",
+    description: "Conducting interviews and affinity mapping to identify pain points and provide suggestions.",
+    link: "#"
+  },
+  {
+    id: 3,
+    title: "RidEase",
+    category: "App Design",
+    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+    description: "Designed a carpooling app with a focus on safety and user experience.",
+    link: "/projects/ridease"
+  }
+];
+
 const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const projectRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [activeProject, setActiveProject] = useState<number | null>(null);
+
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -34,12 +46,15 @@ const Projects: React.FC = () => {
     }, {
       threshold: 0.1
     });
+
     if (headerRef.current) {
       observer.observe(headerRef.current);
     }
+
     projectRefs.current.forEach(item => {
       if (item) observer.observe(item);
     });
+
     return () => {
       if (headerRef.current) {
         observer.unobserve(headerRef.current);
@@ -54,7 +69,9 @@ const Projects: React.FC = () => {
   const handleCardHover = (id: number | null) => {
     setActiveProject(id);
   };
-  return <section id="projects" className="section snap-section bg-secondary/30" ref={sectionRef}>
+
+  return (
+    <section id="projects" className="section snap-section bg-secondary/30" ref={sectionRef}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-14 opacity-0 transform translate-y-8" ref={headerRef}>
           <span className="inline-block px-3 py-1 text-xs font-medium tracking-wider rounded-full bg-white mb-4">
@@ -64,9 +81,17 @@ const Projects: React.FC = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projectsData.map((project, index) => <div key={project.id} className="project-card interactive-card opacity-0 transform translate-y-8 cursor-hover" ref={el => projectRefs.current[index] = el} style={{
-          transitionDelay: `${index * 0.1}s`
-        }} onMouseEnter={() => handleCardHover(project.id)} onMouseLeave={() => handleCardHover(null)}>
+          {projectsData.map((project, index) => (
+            <div 
+              key={project.id} 
+              className="project-card interactive-card opacity-0 transform translate-y-8 cursor-hover" 
+              ref={el => projectRefs.current[index] = el} 
+              style={{
+                transitionDelay: `${index * 0.1}s`
+              }} 
+              onMouseEnter={() => handleCardHover(project.id)} 
+              onMouseLeave={() => handleCardHover(null)}
+            >
               <div className="relative overflow-hidden aspect-[4/3] group">
                 <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent transition-opacity duration-300 ${activeProject === project.id ? 'opacity-100' : 'opacity-0 lg:group-hover:opacity-100'}`}>
@@ -81,19 +106,20 @@ const Projects: React.FC = () => {
               <div className="p-6 card-content">
                 <p className="text-muted-foreground">{project.description}</p>
                 <div className="mt-4 flex items-center transition-opacity duration-300 opacity-0 lg:group-hover:opacity-100">
-                  <a href="#" className="nav-link inline-block text-sm font-medium">
+                  <Link to={project.link} className="nav-link inline-block text-sm font-medium">
                     View Project
-                  </a>
+                  </Link>
                   <svg className="w-4 h-4 ml-2 transition-transform duration-300 transform translate-x-0 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </div>
               </div>
-            </div>)}
+            </div>
+          ))}
         </div>
-        
-        
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Projects;

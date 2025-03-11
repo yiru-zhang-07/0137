@@ -5,6 +5,7 @@ import Navigation from '../components/Navigation';
 import About from '../components/About';
 import Projects from '../components/Projects';
 import Footer from '../components/Footer';
+import TextHighlighter from '../components/TextHighlighter';
 
 const Index: React.FC = () => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
@@ -112,54 +113,45 @@ const Index: React.FC = () => {
       <Navigation />
       
       <main>
-        <section id="hero" ref={heroSectionRef} className="snap-section min-h-screen flex items-center justify-center px-6 relative">
-          <WipeableImage
-            topImage="https://images.unsplash.com/photo-1482881497185-d4a9ddbe4151?auto=format&fit=crop&w=1600&q=80"
-            className="w-full h-screen absolute inset-0"
-            containedMode={false}
-            bottomContent={
-              <div className="flex flex-col items-center justify-center text-center p-6">
-                <span className="inline-block px-3 py-1 text-xs font-medium tracking-wider rounded-full bg-secondary mb-4 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-                  UX/UI DESIGNER
-                </span>
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-scale-in" style={{ animationDelay: '0.7s' }}>
-                  👋 Hi there, I'm Yiru!
-                </h1>
-                <p className="text-lg md:text-xl text-muted-foreground max-w-xl mb-8 animate-fade-in" style={{ animationDelay: '0.9s' }}>
-                  I design engaging and fun experiences
-                </p>
-                <div className="flex flex-col items-center animate-fade-in" style={{ animationDelay: '1.1s' }}>
-                  <div className="flex flex-col items-center mt-8">
-                    <div className="flex space-x-2">
-                      {[1, 2, 3].map((i) => (
-                        <div 
-                          key={i} 
-                          className="animate-bounce" 
-                          style={{ 
-                            animationDelay: `${0 * i}s`,
-                            animationDuration: '1.5s'
-                          }}
-                        >
-                          <svg 
-                            width="24" 
-                            height="24" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            strokeWidth="2" 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round"
-                          >
-                            <path d="M12 5v14M5 12l7 7 7-7"/>
-                          </svg>
-                        </div>
-                      ))}
-                    </div>
+        <section id="hero" ref={heroSectionRef} className="snap-section h-screen w-screen flex items-center justify-center relative bg-paper overflow-hidden">
+          <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center text-center p-6">
+            <span className="inline-block px-3 py-1 text-xs font-medium tracking-wider rounded-full bg-secondary mb-4 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+              UX DESIGNER & MOTION DESIGNER
+            </span>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-scale-in" style={{ animationDelay: '0.7s' }}>
+              👋 Hi there, I'm Yiru!
+            </h1>
+            <div className="text-lg md:text-xl text-muted-foreground max-w-xl mb-8 animate-fade-in" style={{ animationDelay: '0.9s' }}>
+              <p>I design <TextHighlighter>engaging and fun</TextHighlighter> experiences</p>
+            </div>
+            <div className="flex flex-col items-center animate-fade-in" style={{ animationDelay: '1.1s' }}>
+              <div className="flex space-x-2 mt-8">
+                {[1, 2, 3].map((i) => (
+                  <div 
+                    key={i} 
+                    className="animate-bounce" 
+                    style={{ 
+                      animationDelay: `${0.1 * i}s`,
+                      animationDuration: '1.5s'
+                    }}
+                  >
+                    <svg 
+                      width="24" 
+                      height="24" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    >
+                      <path d="M12 5v14M5 12l7 7 7-7"/>
+                    </svg>
                   </div>
-                </div>
+                ))}
               </div>
-            }
-          />
+            </div>
+          </div>
         </section>
         
         <About />
