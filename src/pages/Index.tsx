@@ -114,13 +114,13 @@ const Index: React.FC = () => {
       <main>
         <section id="hero" ref={heroSectionRef} className="snap-section min-h-screen flex items-center justify-center px-6 relative">
           <WipeableImage
-            topImage="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&w=1600&q=80"
+            topImage="https://images.unsplash.com/photo-1482881497185-d4a9ddbe4151?auto=format&fit=crop&w=1600&q=80"
             className="w-full h-screen absolute inset-0"
-            containedMode={true}
+            containedMode={false}
             bottomContent={
               <div className="flex flex-col items-center justify-center text-center p-6">
                 <span className="inline-block px-3 py-1 text-xs font-medium tracking-wider rounded-full bg-secondary mb-4 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-                  DESIGNER & DEVELOPER
+                  UX DESIGNER & MOTION DESIGNER
                 </span>
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-scale-in" style={{ animationDelay: '0.7s' }}>
                   👋 Hi, I'm Yiru!

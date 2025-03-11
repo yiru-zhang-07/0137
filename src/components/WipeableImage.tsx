@@ -19,7 +19,6 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isDrawing, setIsDrawing] = useState(false);
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
-  const scratchAreaRef = useRef<HTMLDivElement>(null);
   const wipeCirclesRef = useRef<HTMLDivElement[]>([]);
   const colors = [
     '#FEC6A1', '#E5DEFF', '#FFDEE2', '#FDE1D3', '#D3E4FD',
@@ -51,19 +50,9 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
 
   // Handle mouse/touch movement
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
-    if ((!containedMode && !containerRef.current) || 
-        (containedMode && !scratchAreaRef.current) || 
-        !isLoaded) return;
+    if (!containerRef.current || !isLoaded) return;
     
-    let containerRect;
-    
-    if (containedMode && scratchAreaRef.current) {
-      containerRect = scratchAreaRef.current.getBoundingClientRect();
-    } else if (containerRef.current) {
-      containerRect = containerRef.current.getBoundingClientRect();
-    } else {
-      return;
-    }
+    const containerRect = containerRef.current.getBoundingClientRect();
     
     let clientX, clientY;
     
@@ -89,7 +78,7 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
   
   // Create a watercolor circle effect at the given position
   const createWatercolorCircle = (x: number, y: number) => {
-    if (!scratchAreaRef.current && !containerRef.current) return;
+    if (!containerRef.current) return;
     
     const circle = document.createElement('div');
     circle.className = 'wipe-circle';
@@ -112,8 +101,7 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     circle.style.transition = 'opacity 2s';
     
     // Append to container
-    const targetContainer = containedMode ? scratchAreaRef.current : containerRef.current;
-    targetContainer?.appendChild(circle);
+    containerRef.current.appendChild(circle);
     
     // Store circle reference for cleanup
     wipeCirclesRef.current.push(circle);
@@ -122,8 +110,8 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
     setTimeout(() => {
       circle.style.opacity = '0';
       setTimeout(() => {
-        if (targetContainer?.contains(circle)) {
-          targetContainer.removeChild(circle);
+        if (containerRef.current?.contains(circle)) {
+          containerRef.current.removeChild(circle);
         }
         wipeCirclesRef.current = wipeCirclesRef.current.filter(c => c !== circle);
       }, 2000);
@@ -172,33 +160,17 @@ const WipeableImage: React.FC<WipeableImageProps> = ({
         {bottomContent}
       </div>
       
-      {/* Scratch area (if in contained mode) */}
-      {containedMode ? (
-        <div 
-          ref={scratchAreaRef}
-          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 aspect-[4/3] z-10 rounded-lg overflow-hidden border-4 border-white/20 shadow-xl cursor-none"
-          style={{ maxWidth: "900px" }}
-          onMouseMove={handleMouseMove}
-          onMouseDown={handleStart}
-          onMouseUp={handleEnd}
-          onMouseLeave={handleEnd}
-          onTouchMove={handleMouseMove}
-          onTouchStart={handleStart}
-          onTouchEnd={handleEnd}
-        />
-      ) : (
-        // Full-screen interaction area
-        <div 
-          className="absolute inset-0 z-10 cursor-none"
-          onMouseMove={handleMouseMove}
-          onMouseDown={handleStart}
-          onMouseUp={handleEnd}
-          onMouseLeave={handleEnd}
-          onTouchMove={handleMouseMove}
-          onTouchStart={handleStart}
-          onTouchEnd={handleEnd}
-        />
-      )}
+      {/* Full-screen interaction area */}
+      <div 
+        className="absolute inset-0 z-10 cursor-none"
+        onMouseMove={handleMouseMove}
+        onMouseDown={handleStart}
+        onMouseUp={handleEnd}
+        onMouseLeave={handleEnd}
+        onTouchMove={handleMouseMove}
+        onTouchStart={handleStart}
+        onTouchEnd={handleEnd}
+      />
       
       {/* Loading state */}
       {!isLoaded && (
