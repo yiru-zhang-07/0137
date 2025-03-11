@@ -65,20 +65,20 @@ const Index: React.FC = () => {
     };
   }, [cursorHover]);
   
-  // Hide default cursor on desktop only in hero section
+  // Hide default cursor on desktop
   useEffect(() => {
     if (window.innerWidth >= 1024) {
-      document.body.style.cursor = isInHeroSection ? 'none' : 'auto';
+      document.body.style.cursor = 'none';
       
       // Reset cursor when component unmounts
       return () => {
         document.body.style.cursor = 'auto';
       };
     }
-  }, [isInHeroSection]);
+  }, []);
   
-  // Only render custom cursor on larger screens and when in hero section
-  const shouldRenderCursor = typeof window !== 'undefined' && window.innerWidth >= 1024 && isInHeroSection;
+  // Only render custom cursor on larger screens
+  const shouldRenderCursor = typeof window !== 'undefined' && window.innerWidth >= 1024;
   
   return (
     <>
@@ -111,8 +111,8 @@ const Index: React.FC = () => {
       
       <Navigation />
       
-      <main>
-        <section id="hero" ref={heroSectionRef} className="snap-section min-h-screen flex items-center justify-center px-6 relative">
+      <main className="bg-paper">
+        <section id="hero" ref={heroSectionRef} className="snap-section h-screen w-full flex items-center justify-center relative p-0 m-0 overflow-hidden">
           <WipeableImage
             topImage="https://images.unsplash.com/photo-1482881497185-d4a9ddbe4151?auto=format&fit=crop&w=1600&q=80"
             className="w-full h-screen absolute inset-0"
@@ -120,7 +120,7 @@ const Index: React.FC = () => {
             bottomContent={
               <div className="flex flex-col items-center justify-center text-center p-6">
                 <span className="inline-block px-3 py-1 text-xs font-medium tracking-wider rounded-full bg-secondary mb-4 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-                  UX/UI DESIGNER
+                  UX DESIGNER & MOTION DESIGNER
                 </span>
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-scale-in" style={{ animationDelay: '0.7s' }}>
                   👋 Hi there, I'm Yiru!
