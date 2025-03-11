@@ -120,10 +120,10 @@ const Index: React.FC = () => {
             bottomContent={
               <div className="flex flex-col items-center justify-center text-center p-6">
                 <span className="inline-block px-3 py-1 text-xs font-medium tracking-wider rounded-full bg-secondary mb-4 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-                  UX DESIGNER & MOTION DESIGNER
+                  UX/UI DESIGNER
                 </span>
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-scale-in" style={{ animationDelay: '0.7s' }}>
-                  👋 Hi, I'm Yiru!
+                  👋 Hi there, I'm Yiru!
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground max-w-xl mb-8 animate-fade-in" style={{ animationDelay: '0.9s' }}>
                   I design engaging and fun experiences
@@ -136,7 +136,7 @@ const Index: React.FC = () => {
                           key={i} 
                           className="animate-bounce" 
                           style={{ 
-                            animationDelay: `${0.3 * i}s`,
+                            animationDelay: `${0 * i}s`,
                             animationDuration: '1.5s'
                           }}
                         >
