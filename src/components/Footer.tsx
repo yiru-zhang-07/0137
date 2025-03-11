@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-border pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-muted-foreground mb-4 md:mb-0">
-              &copy; {currentYear} Yiru's Portfolio. All rights reserved.
+              &copy; {currentYear} Yiru's Portfolio.
             </p>
             
             {/* Contact Information */}
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                San Francisco, California
+                Sydney, NSW, Australia
               </span>
             </div>
           </div>
