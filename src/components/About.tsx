@@ -67,16 +67,16 @@ const About: React.FC = () => {
               <p className="text-sm text-muted-foreground">Creating intuitive interfaces with a focus on user experience</p>
             </div>
             <div className="bg-secondary/50 p-4 rounded-lg">
-              <h4 className="font-medium mb-1">Front-end Development</h4>
-              <p className="text-sm text-muted-foreground">Building responsive and accessible web applications</p>
+              <h4 className="font-medium mb-1">UX Research</h4>
+              <p className="text-sm text-muted-foreground">Understanding needs through quantitive and qualitative research</p>
             </div>
             <div className="bg-secondary/50 p-4 rounded-lg">
               <h4 className="font-medium mb-1">Interactive Experiences</h4>
-              <p className="text-sm text-muted-foreground">Crafting engaging and memorable digital interactions</p>
+              <p className="text-sm text-muted-foreground">Crafting engaging and fun digital interactions</p>
             </div>
             <div className="bg-secondary/50 p-4 rounded-lg">
-              <h4 className="font-medium mb-1">Creative Direction</h4>
-              <p className="text-sm text-muted-foreground">Guiding the overall vision and execution of projects</p>
+              <h4 className="font-medium mb-1">Data Analysis</h4>
+              <p className="text-sm text-muted-foreground">Unlocking insights through spatial intelligence (Geospacial Certificate earned)</p>
             </div>
           </div>
         </div>
