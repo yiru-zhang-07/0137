@@ -34,7 +34,7 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
           <div className="opacity-0 transform translate-y-8" ref={el => itemsRef.current[1] = el}>
             <p className="text-lg md:text-xl leading-relaxed mb-6">I transform pixels into purpose, bridging physical and digital worlds through design. </p>
-            <p className="text-base text-muted-foreground leading-relaxed">With roots in landscape architecture and urban design, I create digital experiences that don't just look beautiful—they connect with users on a deeper level, leaving lasting impressions that truly matter.</p>
+            <p className="text-base text-muted-foreground leading-relaxed">With roots in landscape architecture and urban design, I create digital experiences they connect with users on a deeper level, leaving lasting impressions that truly matter.</p>
           </div>
           
           <div className="opacity-0 transform translate-y-8" ref={el => itemsRef.current[2] = el}>
@@ -44,15 +44,15 @@ const About: React.FC = () => {
                 <p className="text-sm text-muted-foreground">Years of Experience</p>
               </div>
               <div>
-                <h3 className="text-3xl font-bold mb-2">50+</h3>
+                <h3 className="text-3xl font-bold mb-2">5+</h3>
                 <p className="text-sm text-muted-foreground">Projects Completed</p>
               </div>
               <div>
-                <h3 className="text-3xl font-bold mb-2">3+</h3>
-                <p className="text-sm text-muted-foreground">Happy Clients</p>
+                <h3 className="text-3xl font-bold mb-2">8+</h3>
+                <p className="text-sm text-muted-foreground">Years of Design Expertise</p>
               </div>
               <div>
-                <h3 className="text-3xl font-bold mb-2">7+</h3>
+                <h3 className="text-3xl font-bold mb-2">4+</h3>
                 <p className="text-sm text-muted-foreground">Awards Received</p>
               </div>
             </div>
