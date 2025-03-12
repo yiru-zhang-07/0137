@@ -1,19 +1,23 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const projectsData = [{
   id: 1,
   title: "Bloom App Design",
   category: "Interaction Design",
   imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80",
-  description: "A mobile application that connects gardeners in a social network to share and grow."
+  description: "A mobile application that connects gardeners in a social network to share and grow.",
+  link: "/projects/bloom"
 }, {
   id: 2,
   title: "Talent Assessment",
   category: "UX Research",
   imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80",
-  description: "Conducting interviews and affinity mapping to identify pain points and provide suggestions."
+  description: "Conducting interviews and affinity mapping to identify pain points and provide suggestions.",
+  link: "/projects/talent-assessment"
 }, {
   id: 3,
   title: "RidEase",
@@ -103,27 +107,18 @@ const Projects: React.FC = () => {
               </div>
               <div className="p-6 card-content">
                 <p className="text-muted-foreground">{project.description}</p>
-                <div className="mt-4 flex items-center transition-opacity duration-300 opacity-0 lg:group-hover:opacity-100">
+                <div className="mt-4">
                   {project.link ? (
-                    <Link 
-                      to={project.link} 
-                      className="nav-link inline-block text-sm font-medium"
-                    >
-                      View Project
+                    <Link to={project.link}>
+                      <Button className="mt-2 flex items-center gap-2">
+                        View Project <ArrowRight className="h-4 w-4" />
+                      </Button>
                     </Link>
                   ) : (
-                    <a href="#" className="nav-link inline-block text-sm font-medium">
-                      View Project
-                    </a>
+                    <Button disabled className="mt-2 flex items-center gap-2">
+                      Coming Soon <ArrowRight className="h-4 w-4" />
+                    </Button>
                   )}
-                  <svg 
-                    className="w-4 h-4 ml-2 transition-transform duration-300 transform translate-x-0 group-hover:translate-x-2" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
                 </div>
               </div>
             </div>

@@ -65,24 +65,29 @@ const Index: React.FC = () => {
     };
   }, [cursorHover]);
   
-  // Hide default cursor on desktop
+  // Custom cursor only in hero section
   useEffect(() => {
     if (window.innerWidth >= 1024) {
-      document.body.style.cursor = 'none';
+      // Control cursor visibility based on section
+      if (isInHeroSection) {
+        document.body.style.cursor = 'none';
+      } else {
+        document.body.style.cursor = 'auto';
+      }
       
       // Reset cursor when component unmounts
       return () => {
         document.body.style.cursor = 'auto';
       };
     }
-  }, []);
+  }, [isInHeroSection]);
   
   // Only render custom cursor on larger screens
   const shouldRenderCursor = typeof window !== 'undefined' && window.innerWidth >= 1024;
   
   return (
     <>
-      {shouldRenderCursor && (
+      {shouldRenderCursor && isInHeroSection && (
         <div 
           ref={cursorRef}
           className={`custom-cursor ${cursorActive ? 'active' : ''} ${cursorHover ? 'hover' : ''}`}

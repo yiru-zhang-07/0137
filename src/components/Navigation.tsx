@@ -1,33 +1,37 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
   
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
       
-      // Update active section based on scroll position
-      const sections = ['hero', 'about', 'projects'];
-      const currentSection = sections.find(section => {
-        const element = document.getElementById(section);
-        if (!element) return false;
+      // Update active section based on scroll position (only on homepage)
+      if (isHomePage) {
+        const sections = ['hero', 'about', 'projects'];
+        const currentSection = sections.find(section => {
+          const element = document.getElementById(section);
+          if (!element) return false;
+          
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom > 100;
+        });
         
-        const rect = element.getBoundingClientRect();
-        return rect.top <= 100 && rect.bottom > 100;
-      });
-      
-      if (currentSection) {
-        setActiveSection(currentSection);
+        if (currentSection) {
+          setActiveSection(currentSection);
+        }
       }
     };
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
   
   return (
     <header 
@@ -42,24 +46,40 @@ const Navigation: React.FC = () => {
         
         {/* Navigation Tabs */}
         <nav className="flex items-center space-x-8">
-          <a 
-            href="#hero" 
-            className={`nav-link text-sm font-medium ${activeSection === 'hero' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
-          >
-            Home
-          </a>
-          <a 
-            href="#about" 
-            className={`nav-link text-sm font-medium ${activeSection === 'about' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
-          >
-            About
-          </a>
-          <a 
-            href="#projects" 
-            className={`nav-link text-sm font-medium ${activeSection === 'projects' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
-          >
-            Projects
-          </a>
+          {isHomePage ? (
+            <>
+              <a 
+                href="#hero" 
+                className={`nav-link text-sm font-medium ${activeSection === 'hero' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
+              >
+                Home
+              </a>
+              <a 
+                href="#about" 
+                className={`nav-link text-sm font-medium ${activeSection === 'about' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
+              >
+                About
+              </a>
+              <a 
+                href="#projects" 
+                className={`nav-link text-sm font-medium ${activeSection === 'projects' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
+              >
+                Projects
+              </a>
+            </>
+          ) : (
+            <>
+              <Link to="/" className="nav-link text-sm font-medium">
+                Home
+              </Link>
+              <Link to="/#about" className="nav-link text-sm font-medium">
+                About
+              </Link>
+              <Link to="/#projects" className="nav-link text-sm font-medium">
+                Projects
+              </Link>
+            </>
+          )}
         </nav>
       </div>
     </header>
