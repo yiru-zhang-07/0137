@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
@@ -61,6 +62,19 @@ const ProjectRidEase: React.FC = () => {
           </div>
         </section>
 
+        {/* Hero Screenshots */}
+        <section className="py-12 bg-indigo-50">
+          <div className="max-w-6xl mx-auto px-6 md:px-10">
+            <div className="flex justify-center">
+              <img 
+                src="/lovable-uploads/105fb5cc-751e-4071-ab86-132e8a99bac0.png" 
+                alt="RidEase App Mockups" 
+                className="w-full max-w-4xl rounded-lg"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* Project Overview */}
         <section className="py-16 md:py-20">
           <div className="max-w-4xl mx-auto px-6 md:px-10">
@@ -98,333 +112,145 @@ const ProjectRidEase: React.FC = () => {
                 <p className="font-medium">Research, Wireframes, Prototype, UI Design</p>
               </div>
             </div>
-            
-            <div className="mb-12">
-              <img 
-                src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" 
-                alt="RidEase App Preview" 
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
           </div>
         </section>
 
-        {/* Research */}
-        <section className="py-16 md:py-20 bg-secondary/30">
+        {/* 1. Problem & Opportunity */}
+        <section className="py-16 md:py-20 bg-indigo-600 text-white">
           <div className="max-w-4xl mx-auto px-6 md:px-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-8">Research</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-12">1. Problem & Opportunity</h2>
             
-            <div className="mb-12">
-              <h3 className="text-lg font-medium mb-4">Research Goals</h3>
-              <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                <li>Understand the pain points of current carpooling solutions</li>
-                <li>Identify safety concerns for both drivers and passengers</li>
-                <li>Explore user behaviors and motivations for carpooling</li>
-                <li>Examine competitive landscape and identify opportunities</li>
-              </ul>
-            </div>
-            
-            <div className="mb-12">
-              <h3 className="text-lg font-medium mb-4">User Interviews</h3>
-              <p className="text-muted-foreground mb-6">
-                I conducted 12 interviews with potential users across different demographics to understand their concerns, preferences, and expectations from a carpooling service.
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white p-6 rounded-lg">
-                  <h4 className="font-medium mb-3">Key Findings - Passengers</h4>
-                  <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                    <li>Safety is the primary concern</li>
-                    <li>Reliability and punctuality are important</li>
-                    <li>Price transparency is expected</li>
-                    <li>Profile verification increases trust</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-white p-6 rounded-lg">
-                  <h4 className="font-medium mb-3">Key Findings - Drivers</h4>
-                  <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                    <li>Seamless payment processing is crucial</li>
-                    <li>Route flexibility options are desired</li>
-                    <li>Passenger verification is important</li>
-                    <li>Clear pickup/dropoff instructions needed</li>
-                  </ul>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+              <div>
+                <h3 className="text-xl font-medium mb-4">Problems</h3>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>The digital age connects us yet causes social isolation</li>
+                  <li>Increasing car ownership contributes to environmental damage</li>
+                  <li>Traffic congestion worsens in urban areas</li>
+                  <li>Existing carpooling options lack safety features</li>
+                </ul>
               </div>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-medium mb-4">Competitive Analysis</h3>
-              <p className="text-muted-foreground mb-6">
-                I analyzed existing carpooling and ridesharing apps to identify best practices and opportunities for differentiation.
-              </p>
-              
-              <div className="overflow-x-auto mb-6">
-                <table className="min-w-full bg-white rounded-lg">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left p-4">Feature</th>
-                      <th className="text-left p-4">Uber</th>
-                      <th className="text-left p-4">Lyft</th>
-                      <th className="text-left p-4">BlaBlaCar</th>
-                      <th className="text-left p-4">RidEase</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b">
-                      <td className="p-4 font-medium">Real-time tracking</td>
-                      <td className="p-4">✅</td>
-                      <td className="p-4">✅</td>
-                      <td className="p-4">❌</td>
-                      <td className="p-4">✅</td>
-                    </tr>
-                    <tr className="border-b">
-                      <td className="p-4 font-medium">Profile verification</td>
-                      <td className="p-4">Limited</td>
-                      <td className="p-4">Limited</td>
-                      <td className="p-4">✅</td>
-                      <td className="p-4">Enhanced</td>
-                    </tr>
-                    <tr className="border-b">
-                      <td className="p-4 font-medium">Safety features</td>
-                      <td className="p-4">Medium</td>
-                      <td className="p-4">Medium</td>
-                      <td className="p-4">Basic</td>
-                      <td className="p-4">Advanced</td>
-                    </tr>
-                    <tr>
-                      <td className="p-4 font-medium">Long-distance</td>
-                      <td className="p-4">❌</td>
-                      <td className="p-4">❌</td>
-                      <td className="p-4">✅</td>
-                      <td className="p-4">✅</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div>
+                <h3 className="text-xl font-medium mb-4">Opportunities</h3>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>Create a platform that builds community through shared rides</li>
+                  <li>Reduce carbon footprint by encouraging ride sharing</li>
+                  <li>Decrease traffic through carpooling incentives</li>
+                  <li>Design a user-centered solution with enhanced safety features</li>
+                </ul>
               </div>
             </div>
           </div>
         </section>
 
-        {/* User Personas */}
-        <section className="py-16 md:py-20">
+        {/* Research Overview Blue Section */}
+        <section className="py-16 bg-indigo-50">
           <div className="max-w-4xl mx-auto px-6 md:px-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-8">User Personas</h2>
-            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="bg-primary/10 p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center text-2xl mr-4">
-                      👩🏻
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg">Sarah Chen</h3>
-                      <p className="text-muted-foreground">Graduate Student, 26</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="mb-4">
-                    <h4 className="font-medium mb-2">Goals</h4>
-                    <ul className="list-disc list-inside text-muted-foreground">
-                      <li>Find affordable rides to campus</li>
-                      <li>Reduce carbon footprint</li>
-                      <li>Meet new people in her community</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="mb-4">
-                    <h4 className="font-medium mb-2">Frustrations</h4>
-                    <ul className="list-disc list-inside text-muted-foreground">
-                      <li>Unreliable public transportation</li>
-                      <li>Safety concerns when riding with strangers</li>
-                      <li>Unpredictable pricing of rideshare apps</li>
-                    </ul>
-                  </div>
-                </div>
+              <div>
+                <h3 className="text-xl font-medium mb-4">Research Goals</h3>
+                <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                  <li>Understand user pain points with current carpooling solutions</li>
+                  <li>Identify key safety concerns for both drivers and passengers</li>
+                  <li>Determine what motivates people to carpool</li>
+                  <li>Discover opportunities for innovation in the market</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-medium mb-4">Research Methods</h3>
+                <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                  <li>User interviews with current carpoolers</li>
+                  <li>Competitive analysis of existing solutions</li>
+                  <li>Survey of potential users</li>
+                  <li>Market research on transportation trends</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 2. Process/Discovery */}
+        <section className="py-16 md:py-20 bg-indigo-600 text-white">
+          <div className="max-w-4xl mx-auto px-6 md:px-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-12">2. Process/Discovery</h2>
+            
+            <div className="mb-12">
+              <div className="bg-white/10 p-6 rounded-lg mb-8">
+                <h3 className="text-xl font-medium mb-4">User Journey Map</h3>
+                <img 
+                  src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=1200&q=80" 
+                  alt="User Journey Map" 
+                  className="w-full h-auto rounded-lg"
+                />
               </div>
               
-              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="bg-primary/10 p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center text-2xl mr-4">
-                      👨🏽
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg">Michael Rodriguez</h3>
-                      <p className="text-muted-foreground">IT Professional, 34</p>
-                    </div>
-                  </div>
+              <p className="text-lg mb-8">
+                I mapped the entire user journey to identify pain points and opportunities for both drivers and passengers, 
+                from discovering the app to completing a carpooling trip.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. User Research */}
+        <section className="py-16 md:py-20 bg-indigo-600 text-white">
+          <div className="max-w-4xl mx-auto px-6 md:px-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-12">3. User Research</h2>
+            
+            <div className="mb-12">
+              <h3 className="text-xl font-medium mb-6">User Journey Map</h3>
+              <div className="bg-white/10 p-4 rounded-lg mb-8">
+                <img 
+                  src="/lovable-uploads/105fb5cc-751e-4071-ab86-132e8a99bac0.png" 
+                  alt="User Research Journey Map" 
+                  className="w-full h-auto rounded-lg"
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div>
+                  <h4 className="text-lg font-medium mb-3">Key Findings - P1</h4>
+                  <p>Users are primarily concerned with safety when considering carpooling with strangers.</p>
                 </div>
-                <div className="p-6">
-                  <div className="mb-4">
-                    <h4 className="font-medium mb-2">Goals</h4>
-                    <ul className="list-disc list-inside text-muted-foreground">
-                      <li>Share commuting costs</li>
-                      <li>Utilize HOV lanes to save time</li>
-                      <li>Reduce wear on his personal vehicle</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="mb-4">
-                    <h4 className="font-medium mb-2">Frustrations</h4>
-                    <ul className="list-disc list-inside text-muted-foreground">
-                      <li>Difficulty finding reliable passengers</li>
-                      <li>Coordinating pickup/dropoff locations</li>
-                      <li>Lack of verification for riders</li>
-                    </ul>
-                  </div>
+                
+                <div>
+                  <h4 className="text-lg font-medium mb-3">Key Findings - P2</h4>
+                  <p>Cost savings is the main motivator for considering carpooling options.</p>
+                </div>
+                
+                <div>
+                  <h4 className="text-lg font-medium mb-3">Key Findings - P3</h4>
+                  <p>Users want transparency in driver/passenger ratings and verification.</p>
+                </div>
+                
+                <div>
+                  <h4 className="text-lg font-medium mb-3">Key Findings - P4</h4>
+                  <p>Flexibility in pickup and dropoff locations is important to users.</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Design Process */}
-        <section className="py-16 md:py-20 bg-secondary/30">
+        {/* 4. Design */}
+        <section className="py-16 md:py-20 bg-indigo-600 text-white">
           <div className="max-w-4xl mx-auto px-6 md:px-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-10">Design Process</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-12">4. Design</h2>
             
-            <div className="space-y-16">
-              <div>
-                <h3 className="text-xl font-medium mb-6">1. Information Architecture</h3>
-                <p className="text-muted-foreground mb-6">
-                  Based on user research and competitive analysis, I developed the information architecture for RidEase, organizing the app's features in a user-centered way.
-                </p>
-                <div className="bg-white p-8 rounded-lg shadow-sm">
-                  <img 
-                    src="https://images.unsplash.com/photo-1512758017271-d7b84c2113f1?auto=format&fit=crop&w=1200&q=80" 
-                    alt="Information Architecture Diagram" 
-                    className="w-full h-auto rounded-lg"
-                  />
-                </div>
+            <div className="mb-12">
+              <h3 className="text-xl font-medium mb-6">Sketches & Low-fidelity Wireframes</h3>
+              <div className="bg-white/10 p-4 rounded-lg mb-8">
+                <img 
+                  src="/lovable-uploads/105fb5cc-751e-4071-ab86-132e8a99bac0.png" 
+                  alt="Sketches and Wireframes" 
+                  className="w-full h-auto rounded-lg"
+                />
               </div>
               
-              <div>
-                <h3 className="text-xl font-medium mb-6">2. Wireframes</h3>
-                <p className="text-muted-foreground mb-6">
-                  I created low-fidelity wireframes to establish the basic structure and layout of key screens.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-white p-4 rounded-lg shadow-sm">
-                    <img 
-                      src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=500&q=80" 
-                      alt="Wireframe - Home Screen" 
-                      className="w-full h-auto rounded-lg mb-2"
-                    />
-                    <p className="text-sm text-center text-muted-foreground">Home Screen</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-sm">
-                    <img 
-                      src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=500&q=80" 
-                      alt="Wireframe - Ride Booking" 
-                      className="w-full h-auto rounded-lg mb-2"
-                    />
-                    <p className="text-sm text-center text-muted-foreground">Ride Booking</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-sm">
-                    <img 
-                      src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=500&q=80" 
-                      alt="Wireframe - Driver Profile" 
-                      className="w-full h-auto rounded-lg mb-2"
-                    />
-                    <p className="text-sm text-center text-muted-foreground">Driver Profile</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-medium mb-6">3. User Testing</h3>
-                <p className="text-muted-foreground mb-6">
-                  I conducted usability testing with 8 participants to validate design decisions and identify areas for improvement.
-                </p>
-                <div className="bg-white p-6 rounded-lg shadow-sm mb-6">
-                  <h4 className="font-medium mb-4">Key Insights</h4>
-                  <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                    <li>Users wanted more prominent safety features</li>
-                    <li>The booking process needed simplification</li>
-                    <li>Profile verification badges were highly valued</li>
-                    <li>Real-time tracking needed to be more intuitive</li>
-                  </ul>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-white p-6 rounded-lg shadow-sm">
-                    <h4 className="font-medium mb-3">Success Metrics</h4>
-                    <div className="space-y-4">
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium">Task Completion Rate</span>
-                          <span className="text-sm font-medium">92%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-primary h-2 rounded-full" style={{ width: '92%' }}></div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium">Time on Task</span>
-                          <span className="text-sm font-medium">85%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-primary h-2 rounded-full" style={{ width: '85%' }}></div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium">User Satisfaction</span>
-                          <span className="text-sm font-medium">88%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-primary h-2 rounded-full" style={{ width: '88%' }}></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-white p-6 rounded-lg shadow-sm">
-                    <h4 className="font-medium mb-3">Iterations Made</h4>
-                    <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                      <li>Redesigned the booking flow from 5 to 3 steps</li>
-                      <li>Added prominent safety features in the main navigation</li>
-                      <li>Enhanced driver/passenger verification visual cues</li>
-                      <li>Improved map interaction for easier pickup/dropoff selection</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-medium mb-6">4. Final Design</h3>
-                <p className="text-muted-foreground mb-6">
-                  After several iterations based on user feedback, I created the final high-fidelity designs with a focus on safety, usability, and visual appeal.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  <img 
-                    src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=800&q=80" 
-                    alt="Final Design - Home Screen" 
-                    className="w-full h-auto rounded-lg shadow-md"
-                  />
-                  <img 
-                    src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=800&q=80" 
-                    alt="Final Design - Ride Details" 
-                    className="w-full h-auto rounded-lg shadow-md"
-                  />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <img 
-                    src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=800&q=80" 
-                    alt="Final Design - Driver Profile" 
-                    className="w-full h-auto rounded-lg shadow-md"
-                  />
-                  <img 
-                    src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=800&q=80" 
-                    alt="Final Design - Safety Features" 
-                    className="w-full h-auto rounded-lg shadow-md"
-                  />
-                </div>
-              </div>
+              <p className="text-lg mb-8">
+                I started with sketches to explore different navigation patterns and core features before moving 
+                to low-fidelity wireframes to test the basic user flow.
+              </p>
             </div>
           </div>
         </section>
@@ -498,7 +324,7 @@ const ProjectRidEase: React.FC = () => {
               Explore more of my UX design work and see how I approach different design challenges.
             </p>
             
-            <Link to="/" className="btn-primary">
+            <Link to="/" className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow hover:bg-primary/90">
               Back to Portfolio
             </Link>
           </div>

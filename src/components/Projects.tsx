@@ -82,7 +82,7 @@ const Projects: React.FC = () => {
           {projectsData.map((project, index) => (
             <div 
               key={project.id} 
-              className="project-card interactive-card opacity-0 transform translate-y-8 cursor-hover" 
+              className="project-card interactive-card opacity-0 transform translate-y-8" 
               ref={el => projectRefs.current[index] = el} 
               style={{
                 transitionDelay: `${index * 0.1}s`
